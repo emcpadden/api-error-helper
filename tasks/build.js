@@ -18,6 +18,8 @@ var paths = {
     copyFromAppDir: [
         './node_modules/**',
         './vendor/**',
+        './assets/**',
+        './src/**',
         './**/*.html',
         './**/*.+(jpg|png|svg)'
     ],
