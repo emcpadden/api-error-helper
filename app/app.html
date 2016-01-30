@@ -27,50 +27,42 @@
     <script src="app.js"></script>
 </head>
   <body ng-app="starterApp" layout="row" ng-controller="UserController as ul" ng-cloak >
-  <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
-      md-component-id="left"
-      ng-click="ul.toggleList()" aria-label="Show User List"
-      md-is-locked-open="$mdMedia('gt-sm')">
+    <div layout="column" style="height:500px;" layout-fill>
 
-    <md-toolbar class="md-whiteframe-z1">
-      <h3>Users</h3>
-    </md-toolbar>
-
-    <md-list>
-      <md-list-item ng-repeat="it in ul.users">
-          <md-button ng-click="ul.selectUser(it)" ng-class="{'selected' : it === ul.selected }">
-            <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
-            {{it.name}}
-          </md-button>
-      </md-list-item>
-    </md-list>
-
-  </md-sidenav>
-
-
-  <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
-
-    <md-toolbar layout="row" class="md-whiteframe-z1">
-      <md-button id="main" class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show User List">
-        <md-icon md-svg-icon="menu" ></md-icon>
+        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2 md-sidenav-left">
+            <md-toolbar md-theme="custom" class="md-hue-1 md-whiteframe-z2">
+                <md-button layout="row" layout-align="center center" class="md-toolbar-tools md-warn"
+                    href="https://github.com/flatlogic/angular-material-dashboard">
+                    <h1><img src="assets/images/tgIMG-logo-tangoe.png"/></h1>
+                </md-button>
+            </md-toolbar>
+            <md-button ng-repeat-start="item in vm.menuItems" layout="column" layout-align="center center"
+                 flex class="capitalize" ng-click="vm.selectItem(item)"
+                 ui-sref-active="md-warn" ui-sref="{{item.sref}}">
+                <div hide-sm hide-md class="md-tile-content">
+              <i class="material-icons md-36">{{item.icon}}</i>
+          </div>
+          <div class="md-tile-content">
+              {{item.name}}
+          </div>
       </md-button>
-      <h3>Angular Material - Starter App</h3>
-    </md-toolbar>
+      <md-divider ng-repeat-end></md-divider>
+      <md-button ng-click="vm.showActions($event)" layout-align="center center">
+          <div class="md-tile-content">
+            Actions
+          </div>
+      </md-button>
+</md-sidnav>
 
-    <md-content flex id="content">
-        <md-icon md-svg-icon="{{ul.selected.avatar}}" class="avatar"></md-icon>
-        <h2>{{ul.selected.name}}</h2>
-        <p>{{ul.selected.content}}</p>
+<div layout="column" flex layout-fill>
+    Stuff goes in here
+</div>
 
-        <md-button class="contact" md-no-ink ng-click="ul.makeContact(ul.selected)" aria-label="Share with {{ ul.selected.name }}">
-          <md-tooltip>Contact {{ ul.selected.name }}</md-tooltip>
-          <md-icon md-svg-icon="share"></md-icon>
-        </md-button>
-      </md-content>
+<md-sidenav md-component-id="right" class="md-whiteframe-z2 md-sidenav-right">
+</md>
 
-  </div>
-
-     <script src="./node_modules/angular/angular.js"></script>
+</div>
+    <script src="./node_modules/angular/angular.js"></script>
     <script src="./node_modules/angular-animate/angular-animate.js"></script>
     <script src="./node_modules/angular-aria/angular-aria.js"></script>
     <script type="text/javascript" src="./node_modules/angular-material/angular-material.js"></script>
@@ -96,7 +88,39 @@
 
                       $mdThemingProvider.theme('default')
                           .primaryPalette('indigo')
-                          .accentPalette('amber');
+                          .accentPalette('amber')
+                          .warnPalette('defaultPrimary');
+
+    $mdThemingProvider.theme('dark', 'default')
+      .primaryPalette('defaultPrimary')
+      .dark();
+
+    $mdThemingProvider.theme('grey', 'default')
+      .primaryPalette('grey');
+
+    $mdThemingProvider.theme('custom', 'default')
+      .primaryPalette('defaultPrimary', {
+        'hue-1': '50'
+    });
+
+    $mdThemingProvider.definePalette('defaultPrimary', {
+      '50':  '#FFFFFF',
+      '100': 'rgb(255, 198, 197)',
+      '200': '#E75753',
+      '300': '#E75753',
+      '400': '#E75753',
+      '500': '#E75753',
+      '600': '#E75753',
+      '700': '#E75753',
+      '800': '#E75753',
+      '900': '#E75753',
+      'A100': '#E75753',
+      'A200': '#E75753',
+      'A400': '#E75753',
+      'A700': '#E75753'
+    });
+
+    $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
 
               });
 
